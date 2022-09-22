@@ -1,4 +1,4 @@
-user = prompt("USERNAME"); 
+let user = prompt("USERNAME"); 
 user || alert("Canceled");
 user == null || user == "Admin" || alert("I don't know you") 
 

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <arpa/inet.h>
 
-#define N = 5;
+const int N = 5;
 
 int main(int argc, char const *argv[])
 {

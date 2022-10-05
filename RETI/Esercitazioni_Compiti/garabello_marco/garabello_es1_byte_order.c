@@ -1,9 +1,7 @@
 #include <stdio.h>
 #include <arpa/inet.h>
 
-
-const int N = 5;
-
+#define N = 5;
 
 int main(int argc, char const *argv[])
 {
@@ -22,4 +20,3 @@ int main(int argc, char const *argv[])
     
     return 0;
 }
-

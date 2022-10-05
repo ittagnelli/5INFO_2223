@@ -15,16 +15,4 @@ int main(){
     }
     return 0;
 }
-
-// #include <arpa/inet.h>
-// #include <stdio.h>
-
-
-// int main(){
-//     int vet[] = {1000, 12890, 54163, 34012, 62984};
-
-//     for(int i = 0; i < 5; i++){
-//         printf("%d = 0x%x --> 0x%x\n", vet[i], vet[i], ntohs(vet[i]));
-//     }
-//     return 0;
-// }
+// Da questo esercizio capisco che la mia CPU è little endian

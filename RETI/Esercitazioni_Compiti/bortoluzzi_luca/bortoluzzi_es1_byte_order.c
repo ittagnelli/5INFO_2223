@@ -8,7 +8,7 @@ int main(){
     int v_numbers2[] ={19875, 5499, 59821, 43120, 26489};
 
     for(int x = 0; x < n; x++){
-        printf("\n Da host a Network order %x", ntohs(v_numbers1[x]));
-        printf("\n Da network a host order %x", htonl(v_numbers2[x]));
+         printf("%d = 0x%x --> 0x%x\n",v_numbers1[i],v_numbers2[i], htons(v_numbers1[i]));
+         printf("%d = 0x%x --> 0x%x\n",v_numbers2[i], v_numbers1[i],ntohr(v_numbers2[i]));
     }
 }

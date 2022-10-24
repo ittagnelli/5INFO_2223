@@ -59,11 +59,14 @@ int socket_accept(int socket_fd)
     socklen_t clientlen = sizeof(clientaddr);
     
     /* accetta una connessione TCP da un client */
-    if((connection_fd = accept(socket_fd, (struct sockaddr *) &clientaddr, &clientlen)) < 0)
+    if((connection_fd = accept(socket_fd, 
+                            (struct sockaddr *) &clientaddr, 
+                            &clientlen)) < 0)
         error("Errore nella fase di accept");
+    
 
-    printf(" Sender's Ip: %s\n", inet_ntoa(clientaddr.sin_addr));
 
+    printf("IP mittente: %s\n", inet_ntoa(clientaddr.sin_addr));
     return connection_fd;
 }
 
@@ -78,14 +81,24 @@ int socket_receive(int socket_fd, char *buf)
     return msg_size;
 }
 
+int socket_send(int socket_fd, char *buf) 
+{
+    int byte_sent;
+
+    if((byte_sent = write(socket_fd, buf, strlen(buf))) < 0)
+        error("Errore nell'invio dati");
+    
+    return byte_sent;
+}
+
 int main(int argc, char **argv) 
 {
     unsigned short tcp_port; /* TCP port in ascolto */
     int socket_fd;           /* welcoming socket file descriptor */
-    int byte_sent;
     int connection_fd;       /* connection socket file descriptor */
     char buf[BUFSIZE];       /* RX buffer */
     int msg_size;            /* dimensione messaggio ricevuto */
+    int byte_sent;           /* numero byte inviati */
 
     /* Verifico la presenza del parametro porta e lo leggo*/ 
     if(argc != 2) {
@@ -110,7 +123,11 @@ int main(int argc, char **argv)
         connection_fd = socket_accept(socket_fd);
 
         msg_size = socket_receive(connection_fd, buf);
-        printf("TCP server ha ricevuto %d byte: %s\n", msg_size, buf);
+        printf("TCP server ha ricevuto dal client %d byte: %s\n", msg_size, buf);
+        
+        byte_sent = socket_send(connection_fd, buf);
+        printf("Inviato %d bytes con successo, il messaggio è: %s\n", byte_sent, buf); 
+
         /* chiudo la connessione con il client */
         close(connection_fd);
     }

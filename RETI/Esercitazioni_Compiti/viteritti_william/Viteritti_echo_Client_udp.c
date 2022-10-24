@@ -15,7 +15,6 @@ man 7 udp
 
 #define BUFSIZE 1024
 
-
 void error(char *msg) 
 {
   perror(msg);
@@ -44,7 +43,7 @@ int socket_send(int socket_fd, char *ip, unsigned short port, char *buf)
     serveraddr.sin_port = htons(port);
     serveraddr.sin_addr.s_addr = inet_addr(ip);
 
-   if((byte_sent = sendto(socket_fd, buf, strlen(buf), 0,
+   if((byte_sent = sendto(socket_fd, buf, BUFSIZE, 0,
          (struct sockaddr*)&serveraddr, sizeof(serveraddr))) < 0)
          error("Errore nell'invio dati");
     
@@ -58,13 +57,14 @@ int socket_receive(int socket_fd, char *buf)
     socklen_t server_struct_len; /* lunghezza dell'indirizzo del client */
   
     /* inizializza la struttura che contiene le informazioni del socket */
-    //memset(&serveraddr, '0', sizeof(serveraddr));
+    memset(&serveraddr, '0', sizeof(serveraddr));
 
     bzero(buf, BUFSIZE);
     if ((msg_size = recvfrom(socket_fd, buf, BUFSIZE, 0,
-         (struct sockaddr*)&serveraddr, sizeof(serveraddr))) < 0)
+         (struct sockaddr*)&serveraddr, &server_struct_len)) < 0)
         error("Errore nella ricezione dati");
     
+        printf("Inviato bytes con successo a %s, porta: %d\n", inet_ntoa(serveraddr.sin_addr), ntohs(serveraddr.sin_port));
     return msg_size;
 }
 
@@ -75,8 +75,7 @@ int main(int argc, char **argv)
     int socket_fd;           /* connection socket */  
     int byte_sent;           /* numero byte inviati */
     int msg_size;
-    char buf[BUFSIZE];       /* RX buffer */
-
+    char buf[BUFSIZE];
 
     /* Verifico la presenza dei parametre IP e porta */ 
     if(argc != 4) {
@@ -92,14 +91,12 @@ int main(int argc, char **argv)
     socket_fd = socket_create();
 
     /* invio sul socket la stringa */
-    byte_sent = socket_send(socket_fd, ip, udp_port, argv[3]);
+    byte_sent = socket_send(socket_fd, ip, udp_port, argv[3]); 
 
     printf("Inviato %d bytes con successo a %s\n", byte_sent, ip);
 
-    for(;;) {
-        msg_size = socket_receive(socket_fd, buf);
-        printf("UDP Client ha ricevuto %d byte: %s\n", msg_size, buf);
-    }
+    msg_size = socket_receive(socket_fd, buf);
+    printf("UDP client ha ricevuto %d byte: %s\n", msg_size, buf);
 
     close(socket_fd);
 }

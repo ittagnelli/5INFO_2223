@@ -6,12 +6,11 @@
 #include <string.h>
 #include <unistd.h>
 
-#define BUFSIZE 1024
 /* 
 man 7 ip
 man 7 tcp
  */
-
+#define BUFSIZE 1024
 /* man perror */
 void error(char *msg) 
 {
@@ -63,7 +62,6 @@ int socket_send(int socket_fd, char *buf)
     return byte_sent;
 }
 
-
 int socket_receive(int socket_fd, char *buf)
 {
     int msg_size;
@@ -75,14 +73,15 @@ int socket_receive(int socket_fd, char *buf)
     return msg_size;
 }
 
-
 int main(int argc, char **argv) 
 {
     unsigned short tcp_port; /* porta tcp di destinazione */
     char *ip;                /* indirizzo ip di destinazione */
     int socket_fd;           /* connection socket */    
     int byte_sent;           /* numero byte inviati */
-    char buf[BUFSIZE];
+    int msg_size;            /* dimensione messaggio ricevuto */
+    char buf[BUFSIZE];       /* RX buffer */
+
 
     /* Verifico la presenza dei parametre IP e porta */ 
     if(argc != 4) {
@@ -102,9 +101,12 @@ int main(int argc, char **argv)
     printf("Socket connesso con il server %s sulla porta %d\n", ip, tcp_port);
 
     /* invio sul socket la stringa */
-     byte_sent = socket_send(socket_fd, argv[3]); 
-        socket_receive(socket_fd, buf);
-    printf("Inviato %d bytes con successo\n", byte_sent);
+    byte_sent = socket_send(socket_fd, argv[3]); 
+
+    printf("Inviato %d bytes con successo, il messaggio è: %s\n", byte_sent, argv[3]);
+
+    msg_size = socket_receive(socket_fd, buf);
+    printf("TCP client ha ricevuto dal server %d byte: %s\n", msg_size, buf);
 
     close(socket_fd);
 }

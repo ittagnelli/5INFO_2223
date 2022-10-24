@@ -62,11 +62,8 @@ int socket_accept(int socket_fd)
     if((connection_fd = accept(socket_fd, 
                             (struct sockaddr *) &clientaddr, 
                             &clientlen)) < 0)
-        error("Errore nella fase di accept");
-    
-
-
-    printf("IP mittente: %s\n", inet_ntoa(clientaddr.sin_addr));
+        error("Errore nella fase di accept");  
+    printf("IP Client %s\n", inet_ntoa(clientaddr.sin_addr));
     return connection_fd;
 }
 
@@ -77,17 +74,16 @@ int socket_receive(int socket_fd, char *buf)
     bzero(buf, BUFSIZE);
     if((msg_size = read(socket_fd, buf, BUFSIZE)) < 0)
         error("Errore nella ricezione dati");
-    
+    printf("Messaggio ricevuto dal Client: %s\n", buf);
     return msg_size;
 }
-
 int socket_send(int socket_fd, char *buf) 
 {
     int byte_sent;
 
     if((byte_sent = write(socket_fd, buf, strlen(buf))) < 0)
         error("Errore nell'invio dati");
-    
+    printf("Messaggio inviato al Client: %s\n", buf);
     return byte_sent;
 }
 
@@ -98,7 +94,6 @@ int main(int argc, char **argv)
     int connection_fd;       /* connection socket file descriptor */
     char buf[BUFSIZE];       /* RX buffer */
     int msg_size;            /* dimensione messaggio ricevuto */
-    int byte_sent;           /* numero byte inviati */
 
     /* Verifico la presenza del parametro porta e lo leggo*/ 
     if(argc != 2) {
@@ -122,11 +117,12 @@ int main(int argc, char **argv)
         /* rimango in attesa fino a quando arriva una richiesta da un client */
         connection_fd = socket_accept(socket_fd);
 
-        msg_size = socket_receive(connection_fd, buf);
-        printf("TCP server ha ricevuto dal client %d byte: %s\n", msg_size, buf);
         
-        byte_sent = socket_send(connection_fd, buf);
-        printf("Inviato %d bytes con successo, il messaggio è: %s\n", byte_sent, buf); 
+        msg_size = socket_receive(connection_fd, buf);
+
+        socket_send(connection_fd, buf);
+
+        printf("TCP server ha ricevuto %d byte: %s\n", msg_size, buf);
 
         /* chiudo la connessione con il client */
         close(connection_fd);

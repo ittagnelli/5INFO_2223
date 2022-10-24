@@ -4,8 +4,7 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <string.h>
-#include <netinet/in.h>
-#include <sys/types.h>
+
 
 /* 
 man 7 ip
@@ -52,36 +51,33 @@ void socket_bind(int socket_fd, unsigned short udp_port)
 int socket_receive(int socket_fd, char *buf, struct sockaddr_in *clientaddr)
 {
     int msg_size;
-    socklen_t client_struct_len; /* lunghezza dell'indirizzo del client */
-
+     socklen_t client_struct_len;/* lunghezza dell'indirizzo del client */
+  
     /* inizializza la struttura che contiene le informazioni del socket */
-    memset(clientaddr, 0, sizeof(*clientaddr));
 
-    bzero(buf, BUFSIZE);
-    
     if ((msg_size = recvfrom(socket_fd, buf, BUFSIZE, 0,
-         (struct sockaddr*)clientaddr, &client_struct_len)) < 0)
+         (struct sockaddr*)&clientaddr, &client_struct_len)) < 0)
         error("Errore nella ricezione dati");
     
     return msg_size;
 }
-
-int socket_send(int socket_fd,char *ip, unsigned short port, char *buf) 
+int socket_send(int socket_fd, struct sockaddr_in clientaddr, char *buf) 
 {
-    struct sockaddr_in clientaddress; /* indirizzo e porta server */  //errore clientaddr, valori sbafliati?
+    struct sockaddr_in serveraddr; /* indirizzo e porta server */  
     int byte_sent;
-
+    printf("send");
      /* prepara le informazioni sulla destinazioen del datagram */
-    clientaddress.sin_family = AF_INET;
-    clientaddress.sin_port = port;
-    clientaddress.sin_addr.s_addr = inet_addr(ip);
+    serveraddr.sin_family = AF_INET;
+    serveraddr.sin_port = clientaddr.sin_port;
+    serveraddr.sin_addr.s_addr = clientaddr.sin_addr.s_addr;
 
-    if((byte_sent = sendto(socket_fd, buf, strlen(buf), 0,
-         (struct sockaddr*)&clientaddress, sizeof(clientaddress))) < 0)
+   if((byte_sent = sendto(socket_fd, buf, strlen(buf), 0,
+         (struct sockaddr*)&serveraddr, sizeof(serveraddr))) < 0)
          error("Errore nell'invio dati");
     
     return byte_sent;
 }
+
 
 int main(int argc, char **argv) 
 {
@@ -91,14 +87,13 @@ int main(int argc, char **argv)
     int msg_size;            /* dimensione messaggio ricevuto */
     int byte_sent;
     struct sockaddr_in clientaddr; /* client address */
-  
+    
     /* Verifico la presenza del parametro porta e lo leggo*/ 
-    // if(argc != 2) {
-    //     printf("uso: %s <porta>\n", argv[0]);
-    //     exit(1);
-    // }
-    // udp_port = (unsigned short)atoi(argv[1]);
-    udp_port = (unsigned short)atoi("8080");
+    if(argc != 2) {
+        printf("uso: %s <porta>\n", argv[0]);
+        exit(1);
+    }
+    udp_port = (unsigned short)atoi(argv[1]);
 
     /* Creo il socket */ 
     socket_fd = socket_create();
@@ -109,11 +104,10 @@ int main(int argc, char **argv)
     /* ciclo principale del server */
     printf("Server UDP pronto e in ascolto sulla porta %d\n\n", udp_port);
     for(;;) {
+        memset(&clientaddr, '0', sizeof(clientaddr));
+        bzero(buf, BUFSIZE);
         msg_size = socket_receive(socket_fd, buf, &clientaddr);
         printf("UDP server ha ricevuto %d byte: %s\n", msg_size, buf);
-
-        printf("Inviato bytes con successo a %s, porta: %d\n", inet_ntoa(clientaddr.sin_addr), ntohs(clientaddr.sin_port));
-        byte_sent = socket_send(socket_fd, inet_ntoa(clientaddr.sin_addr), htons(clientaddr.sin_port) , buf);
-        printf("Inviato %d bytes con successo a %s, porta: %d\n", byte_sent, inet_ntoa(clientaddr.sin_addr), ntohs(clientaddr.sin_port));
+        byte_sent = socket_send(socket_fd, clientaddr, buf);
     }
 }

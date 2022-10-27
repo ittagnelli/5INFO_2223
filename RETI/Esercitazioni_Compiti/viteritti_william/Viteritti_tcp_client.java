@@ -2,7 +2,7 @@ import java.net.*;
 import java.io.*;
 import java.util.Date;
 
-public class tcp_client {
+public class Viteritti_tcp_client {
     public static void main(String[] args) {
         Socket client_socket;
         

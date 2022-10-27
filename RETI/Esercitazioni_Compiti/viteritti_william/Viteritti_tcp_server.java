@@ -1,7 +1,7 @@
 import java.net.*;
 import java.io.*;
 
-public class tcp_server {
+public class Viteritti_tcp_server {
     /**
      * @param args
      */

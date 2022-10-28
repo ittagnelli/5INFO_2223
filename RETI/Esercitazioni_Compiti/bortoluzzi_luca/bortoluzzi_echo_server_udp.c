@@ -105,16 +105,12 @@ int main(int argc, char **argv)
 
     /* ciclo principale del server */
     printf("Server UDP pronto e in ascolto sulla porta %d\n\n", udp_port);
-    for(;;) {
+    for(;;){
         msg_size = socket_receive(socket_fd, buf, &clientaddr);
         printf("UDP server ha ricevuto %d byte: %s\n", msg_size, buf);
 
-        ip = (unsigned short)clientaddr.sin_addr;
-        udp_port = (unsigned short)clientaddr.sin_port;
-
         /* invio sul socket la stringa */
-        byte_sent = socket_send(socket_fd, ip, udp_port, BUFSIZE); 
+        byte_sent = socket_send(socket_fd, ip, udp_port, argv[3]); 
         printf("Inviato %d bytes con successo a %s\n", socket_fd, ip);
-
     }
 }

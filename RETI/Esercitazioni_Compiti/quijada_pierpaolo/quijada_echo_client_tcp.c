@@ -96,6 +96,7 @@ int main(int argc, char **argv)
     /* Acquisisco IP e numero di porta */
     ip = argv[1];
     tcp_port = (unsigned short)atoi(argv[2]);
+    strcat(argv[3], "\n");
 
     /* Creo il socket */
     socket_fd = socket_create();

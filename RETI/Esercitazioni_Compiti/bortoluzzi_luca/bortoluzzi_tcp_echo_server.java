@@ -2,7 +2,7 @@ import java.net.*;
 import java.io.*;
 import java.util.Date;
 
-public class tcp_server {
+public class bortoluzzi_tcp_echo_server {
     public static void main(String[] args) {
         ServerSocket server_socket;
         Socket client_connection;

@@ -104,8 +104,9 @@ int main(int argc, char **argv)
     printf("Socket connesso con il server %s sulla porta %d\n", ip, tcp_port);
 
     /* invio sul socket la stringa */
+     strcat(argv[3], "\n");     
      byte_sent = socket_send(socket_fd, argv[3]); 
- printf("Inviato %d bytes con successo\n", byte_sent);
+     printf("Inviato %d bytes con successo\n", byte_sent);
 
     
     msg_size = socket_receive(socket_fd, argv[3]);

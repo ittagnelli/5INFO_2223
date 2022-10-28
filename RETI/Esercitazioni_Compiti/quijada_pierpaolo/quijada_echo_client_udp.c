@@ -6,12 +6,13 @@
 #include <string.h>
 #include <unistd.h>
 
-#define BUFSIZE 1024
-
 /*
 man 7 ip
 man 7 udp
+
  */
+
+#define BUFSIZE 1024
 
 /* man perror */
 void error(char *msg)
@@ -43,10 +44,10 @@ int socket_send(int socket_fd, char *ip, unsigned short port, char *buf)
     serveraddr.sin_port = htons(port);
     serveraddr.sin_addr.s_addr = inet_addr(ip);
 
+    printf("buffer: %ld\n", strlen(buf));
     if ((byte_sent = sendto(socket_fd, buf, strlen(buf), 0,
                             (struct sockaddr *)&serveraddr, sizeof(serveraddr))) < 0)
         error("Errore nell'invio dati");
-    printf("Messaggio al server: %s\n", buf);
 
     return byte_sent;
 }
@@ -64,7 +65,6 @@ int socket_receive(int socket_fd, char *buf)
     if ((msg_size = recvfrom(socket_fd, buf, BUFSIZE, 0,
                              (struct sockaddr *)&clientaddr, &client_struct_len)) < 0)
         error("Errore nella ricezione dati");
-    printf("Messaggio dal server: %s\n", buf);
 
     return msg_size;
 }
@@ -73,9 +73,10 @@ int main(int argc, char **argv)
 {
     unsigned short udp_port; /* porta tcp di destinazione */
     char *ip;                /* indirizzo ip di destinazione */
-    int socket_fd;
-    char buf[BUFSIZE]; /* connection socket */
-    int byte_sent;
+    int socket_fd;           /* connection socket */
+    char buf[BUFSIZE];       /* RX buffer */
+    int byte_sent;           /* numero byte inviati */
+    int msg_size;            /* dimensione messaggio ricevuto */
 
     /* Verifico la presenza dei parametre IP e porta */
     if (argc != 4)
@@ -92,10 +93,13 @@ int main(int argc, char **argv)
     socket_fd = socket_create();
 
     /* invio sul socket la stringa */
-    byte_sent = socket_send(socket_fd, ip, udp_port, buf);
+    byte_sent = socket_send(socket_fd, ip, udp_port, argv[3]);
 
     printf("Inviato %d bytes con successo a %s\n", byte_sent, ip);
-    socket_receive(socket_fd, buf);
+
+    /* ricevo echo dal server */
+    msg_size = socket_receive(socket_fd, buf);
+    printf("Echo dal server di %d byte: %s\n", msg_size, buf);
 
     close(socket_fd);
 }

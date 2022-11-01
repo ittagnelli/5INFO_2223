@@ -1,11 +1,16 @@
-let Automobile = function (nome, casa, modello, potenza, fattura) {
-  (this.nome = nome),
-  (this.casa = casa),
-  (this.modello = modello),
-  (this.potenza = potenza),
-  (this.fattura = fattura),
-  (this.get_Nome =  function () {
-   console.log(`Nome: ${this.casa} ${this.nome}`);
+let Automobile = function (persone, velocità, rapportoVelocità) {
+  (this.persone = persone),
+  (this.velocità = velocità),
+  (this.rapportoVelocità = rapportoVelocità),
+  (this.stato = stato);
+}
+
+
+
+
+  (this.set_persone =  function () {
+   //console.log(`Inserire il numero di persone da voler mettere in macchina`);
+   let num = prompt(`Inserire il numero di persone da voler mettere in macchina`);
   });
   (this.get_Velocità = function () {
    console.log(`Cavalli: ${this.potenza}`);
@@ -13,13 +18,19 @@ let Automobile = function (nome, casa, modello, potenza, fattura) {
   (this.get_Fatturazione = function () {
    console.log(`fattura: ${this.fattura}$`);
   });
-}
 
-let prima = new Automobile("Panda","Fiat","500",80,"elettronica");
-let seconda = new Automobile("Punto","Fiat","500",88,"elettronica");
-let terza = new Automobile("Multipla","Fiat","500",110,"elettronica");
-let quarta = new Automobile("Phedra","Lancia","500",170,"elettronica");
-let quinta = new Automobile("Murcielago","Lambo","500",460,"elettronica");
+
+
+
+
+
+
+
+let prima = new Automobile("0","0","1",true);
+let seconda = new Automobile("1","150","3", true);
+let terza = new Automobile("2","180","6", true);
+let quarta = new Automobile("3","60","2",true);
+let quinta = new Automobile("4","40","2", true);
 
 console.log(`prima: `)
 prima.get_Nome();

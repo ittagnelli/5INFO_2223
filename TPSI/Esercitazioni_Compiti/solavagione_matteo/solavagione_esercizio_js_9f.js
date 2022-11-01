@@ -5,9 +5,10 @@ function fibonacci(n){
     return fibonacci(+n-1) + fibonacci(+n-2);
 }
 
-console.log(fibonacci(3));
-console.log(fibonacci('5'));
-console.log(fibonacci(7));
-console.log(fibonacci('10'));
-console.log(fibonacci(20));
+console.log(" il numero è " + fibonacci(3));
+console.log(" il numero è " + fibonacci('5'));
+console.log(" il numero è " + fibonacci(7));
+console.log(" il numero è " + fibonacci('10'));
+console.log(" il numero è " + fibonacci(20));
+
 

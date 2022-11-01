@@ -5,12 +5,12 @@
 #include <arpa/inet.h>
 #include <string.h>
 #include <unistd.h>
+#define BUFSIZE 1024
 
 /* 
 man 7 ip
 man 7 tcp
  */
-#define BUFSIZE 1024
 
 /* man perror */
 void error(char *msg) 
@@ -52,18 +52,6 @@ void socket_conenct(int socket_fd, char *ip, unsigned short tcp_port)
             exit(1);
     }
 }
-
-int socket_send(int socket_fd, char *buf) 
-{
-    int byte_sent;
-
-    if((byte_sent = write(socket_fd, buf, strlen(buf))) < 0)
-        error("Errore nell'invio dati");
-    
-    return byte_sent;
-}
-
-
 int socket_receive(int socket_fd, char *buf)
 {
     int msg_size;
@@ -74,9 +62,15 @@ int socket_receive(int socket_fd, char *buf)
     
     return msg_size;
 }
+int socket_send(int socket_fd, char *buf) 
+{               
+    int byte_sent;
 
-
-
+    if((byte_sent = write(socket_fd, buf, strlen(buf))) < 0)
+        error("Errore nell'invio dati");
+    
+    return byte_sent;
+}
 
 int main(int argc, char **argv) 
 {
@@ -84,9 +78,8 @@ int main(int argc, char **argv)
     char *ip;                /* indirizzo ip di destinazione */
     int socket_fd;           /* connection socket */    
     int byte_sent;           /* numero byte inviati */
-    int msg_size;
-
-    /* Verifico la presenza dei parametre IP e porta */ 
+    char buf[BUFSIZE];
+    /* Verifico la presenza dei parametri IP e porta */ 
     if(argc != 4) {
         printf("uso: %s <IP> <porta> <string>\n", argv[0]);
         exit(1);
@@ -104,16 +97,9 @@ int main(int argc, char **argv)
     printf("Socket connesso con il server %s sulla porta %d\n", ip, tcp_port);
 
     /* invio sul socket la stringa */
-     strcat(argv[3], "\n");     
-     byte_sent = socket_send(socket_fd, argv[3]); 
-     printf("Inviato %d bytes con successo\n", byte_sent);
-
-    
-    msg_size = socket_receive(socket_fd, argv[3]);
-    printf("TCP client ha ricevuto %d byte: %s\n", msg_size, argv[3]);
-
-
-   
+     byte_sent = socket_send(socket_fd, strcat (argv[3], "\n")); 
+   socket_receive(socket_fd, buf );
+    printf("Inviato %d bytes con successo\n", byte_sent);
 
     close(socket_fd);
 }

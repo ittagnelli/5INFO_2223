@@ -4,12 +4,9 @@ function stamp(object) {
         console.log(`Tipo dell'attributo: `+ typeof(object[chiave]) );
         let string = "stringa test";
         if(typeof(object[chiave]) == typeof(string)){
-            let lower= object[chiave].tolowercase();
-            console.log(`Valore dell'attributo : ${lower}`);
-            console.log("1");
+            console.log(`Valore dell'attributo : ${object[chiave].toLowerCase()}`);
         }else{
             console.log(`Valore dell'attributo : ${object[chiave]}`);
-            console.log("2");
         }
         console.log(" ");   
     }

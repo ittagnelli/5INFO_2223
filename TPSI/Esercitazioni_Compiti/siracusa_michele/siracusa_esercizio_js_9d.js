@@ -7,8 +7,6 @@ function SommaTuttiNumeri(N){
     return AddNumeri;
 }
 
-console.log(`La somma 1 vale ${SommaTuttiNumeri(5)}`);
-console.log(`La somma 2 vale ${SommaTuttiNumeri(20)}`);
-console.log(`La somma 3 vale ${SommaTuttiNumeri(30)}`);
-
-
+console.log(`La prima somma vale ${SommaTuttiNumeri(5)}`);
+console.log(`La seconda somma vale ${SommaTuttiNumeri(10)}`);
+console.log(`La terza somma vale ${SommaTuttiNumeri(15)}`);

@@ -15,6 +15,6 @@ let key = Object.keys(user);
 let length_user = Object.keys(user).length;
 
 for(let i=0; i<length_user; i++){
-    console.log(`La chiave ${key[i]} è ${user[key[i]]}`);
+    console.log(`La chiave ${key[i]} vale ${user[key[i]]}`);
 
 }

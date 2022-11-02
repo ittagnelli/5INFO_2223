@@ -10,9 +10,8 @@ let data2 = new Date(2022, 1, 20, 3, 30, 10, 0);
 let data3 = new Date(2022, 2, 28, 10, 20, 40, 50);
 let data4 = new Date(2022, 2, 28, 8, 15, 0, 0);
 
-calcolo_date(data1, data2);
 console.log(calcolo_date(data1, data2));
-console.log(calcolo_date(data1, data2));
+console.log(calcolo_date(data3, data4));
 
 function calcolo_date(data1, data2){
     let ms = data1.getMilliseconds() - data2.getMilliseconds();

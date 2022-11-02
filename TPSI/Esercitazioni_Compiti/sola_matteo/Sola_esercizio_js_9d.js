@@ -6,6 +6,10 @@ function sommaNumeri(parametro){
     return somma;
 }
 
-console.log(`La somma del primo numero è ${sommaNumeri(5)}`);
-console.log(`La somma del primo numero è ${sommaNumeri(10)}`);
-console.log(`La somma del primo numero è ${sommaNumeri(15)}`);
+function main() {
+    console.log(`La somma del primo numero è ${sommaNumeri(5)}`);
+    console.log(`La somma del primo numero è ${sommaNumeri(10)}`);
+    console.log(`La somma del primo numero è ${sommaNumeri(15)}`);
+}
+
+main();

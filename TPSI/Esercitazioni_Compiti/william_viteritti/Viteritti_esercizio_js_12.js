@@ -1,24 +1,24 @@
-function controllo_valore(numeri, nummeri2){
-    if(numeri.length == numeri2.length){
-        let v = 0;
-        for(let i=0; i<numeri.length;i++){
-            if(numeri[i] == numeri2[i])
-                v++;
+function verifica(array, array2){
+    if(array.length == array2.length){
+        let variabile = 0; //numero_di_celle_che_si_somigliano
+
+        for(let i = 0; i<array.length; i++){
+            if(array[i] == array2[i])
+                variabile++;
             else
-                v = v;
+                variabile = variabile;
         }
-        if(numeri.length == v){
-            return true
-        }
-        else{
+        if(variabile == array.length)
+            return true;
+
+        else
             return false;
-        }
-    }else{
-        return false;
+        
     }
+    else
+        return false;
 }
 
-let numeri = [1,2,3,4,5];
-let numeri2 = [1,2,3,4,5,6,7];
-
-console.log(controllo_valore(numeri, numeri2));
+let array = [10,20,30,40];
+let array2 = [10,20,30,50];
+console.log(verifica(array, array2));

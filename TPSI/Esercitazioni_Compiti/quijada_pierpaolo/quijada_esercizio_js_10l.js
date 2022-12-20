@@ -1,7 +1,5 @@
 function fusion(str1, str2){
-    let str3 = "";
-    str3 = str3.concat(str2[0], str1.slice(1), " ", str1[0], str2.slice(1));
-    return str3;
+    return "".concat(str1[1], str1[0], str1.slice(2), " ", str2[1], str2[0], str2.slice(2)).trim(); 
 }
 
 console.log(fusion("ciao", "pierpaolo"));

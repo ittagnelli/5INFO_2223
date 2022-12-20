@@ -1,3 +1,0 @@
-function val(N,M){
-
-}

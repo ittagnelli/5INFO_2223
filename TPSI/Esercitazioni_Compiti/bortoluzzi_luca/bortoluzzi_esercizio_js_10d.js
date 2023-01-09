@@ -3,4 +3,4 @@ function capitaliza(str){
     return prima.concat(str.substring(1));
 }
 
-console.log(capitaliza("luca bruni"))
+console.log(capitaliza("luca bello"))

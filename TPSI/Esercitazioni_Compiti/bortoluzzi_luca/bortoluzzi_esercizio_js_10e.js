@@ -1,7 +1,7 @@
 function capitalize(str){
-    let parole = str.split(' '); //['ciao', 'dario', 'ruggieri' ]
+    let parole = str.split(' '); 
     for(let i = 0; i < parole.length; i++){
-        parole[i] = (parole[i].charAt(0).toUpperCase()).concat(parole[i].slice(1))
+        parole[i] = (parole[i].charAt(0).toUpperCase()).concat(parole[i].slice(1));
         
     }
     
@@ -9,5 +9,5 @@ function capitalize(str){
     
 }
 
-console.log(capitalize("ciao dario ruggieri"))
+console.log(capitalize("ciao mondo bello"));
 

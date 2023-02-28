@@ -8,7 +8,6 @@ function conta_occorrenze(stringa){
             map.set(item, map.get(item)+ 1);
         else
             map.set(item, 1);
-            
     } )
     return map;
 }

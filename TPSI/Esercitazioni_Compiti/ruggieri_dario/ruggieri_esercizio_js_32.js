@@ -1,9 +1,13 @@
 let vett = ['omar', 'sette', 'roma', 'teste', 'mora', 'colazione', 'locazione'];
 
-function non_anagrammi(vett){
-    let insieme = new Map([vett]);
-    console.log(insieme);
+function verifica(vett){
+    let map = new Map()
+    for(let word of vett){
+        let sorted = word.toLowerCase().split('').sort().join('');
+        map.set(sorted, word);
+    }
+    return Array.from(map.values());
 }
 
 
-non_anagrammi(vett);
+console.log(verifica(vett));

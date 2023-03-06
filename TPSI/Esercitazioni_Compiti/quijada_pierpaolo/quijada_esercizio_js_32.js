@@ -1,9 +1,10 @@
 function anagrammi(array){
-    for(let i=0; i<array.length; i++){
-        array[i] = array[i].split('').sort().join('');
-    }
-    
-    return new Set(array);
+    let ris = new Set();
+    array.forEach(item => {
+        item = item.split('').sort().join('');
+        ris.add(item);
+    });
+    return ris;
 }
 
 let array = ['omar', 'sette', 'roma', 'teste', 'mora', 'colazione', 'locazione'];

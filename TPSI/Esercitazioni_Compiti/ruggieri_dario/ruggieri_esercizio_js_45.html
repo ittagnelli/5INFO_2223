@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esercitazione 45</title>
+    <script src="ruggieri_esercizio_js_45.js"></script>
+</head>
+<body>
+    <form id="compilazione_dati">
+        <input type="text" id = 'name' placeholder="nome">
+        <input type="text" id = 'surname' placeholder="cognome">
+        <input type="number" id = 'eta' min = 1 max = 100 placeholder="età">
+        <select name="capelli" id="idcapelli">
+            <option value="marrone"> Marrone </option>
+            <option value="biondo"> Biondo</option>
+            <option value="rosso"> Rosso </option>
+            <option value="nero"> Nero </option>
+        </select>
+        <input type="submit" value="Submit" onclick="process_form()" />
+      </form>
+</body>
+</html>

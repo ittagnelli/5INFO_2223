@@ -11,50 +11,50 @@ class Poligono {
 
 
 class Triangolo extends Poligono {
-    constructor(l,v) {
-        super(l,v,0.289);
+    constructor(v) {
+        super(3,v,0.289);
         this.h = Math.sqrt((v**2)-((v/2)**2));
     }
     area() {return (this.valore*this.h)/2}
 }
 
 class Quadrato extends Poligono {
-    constructor(l,v) {
-        super(l,v,0.5);
+    constructor(v) {
+        super(4,v,0.5);
     }
     area() {return this.valore**2}
 }
 
 class Pentagono extends Poligono {
-    constructor(l,v) {
-        super(l,v,0.688);
+    constructor(v) {
+        super(5,v,0.688);
     }
 }
 
 class Esagono extends Poligono {
-    constructor(l,v) {
-        super(l,v,0.866);
+    constructor(v) {
+        super(6,v,0.866);
     }
 }
 
 class Ettagono extends Poligono {
-    constructor(l,v) {
-        super(l,v,1.038);
+    constructor(v) {
+        super(7,v,1.038);
     }
 }
 
 class Ottagono extends Poligono {
-    constructor(l,v) {
-        super(l,v,1.207);
+    constructor(v) {
+        super(8,v,1.207);
     }
 }
 
-let triangolo = new Triangolo(3,15);
-let quadrato = new Quadrato(4,10);
-let pentagono = new Pentagono(5,21);
-let esagono = new Esagono(6,18);
-let ettagono = new Ettagono(7,9);
-let ottagono = new Ottagono(8,12);
+let triangolo = new Triangolo(15);
+let quadrato = new Quadrato(10);
+let pentagono = new Pentagono(21);
+let esagono = new Esagono(18);
+let ettagono = new Ettagono(9);
+let ottagono = new Ottagono(12);
 
 
 console.log("triangolo");
@@ -80,5 +80,6 @@ console.log(ettagono.area())
 console.log("ottagono");
 console.log(ottagono.perimetro());
 console.log(ottagono.area())
+
 
 

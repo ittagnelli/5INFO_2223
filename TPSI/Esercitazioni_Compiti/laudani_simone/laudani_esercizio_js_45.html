@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Form</title>
+</head>
+<body>
+  <form id="myForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name"><br><br>
+    <input type="submit" value="submit" id="Submit" />
+  </form>
+
+  <script>
+    class Form {
+      constructor() {
+        this.form = document.getElementById("myForm");
+        this.submitBtn = document.getElementById("Submit");
+        this.submitBtn.addEventListener("click", this.process_form.bind(this));
+      }
+
+      process_form(event) {
+        // Ottenere il riferimento all'elemento del form usando l'ID
+        const form = this.form;
+
+        // Ottenere i valori dei campi del form
+        const name = form.elements["name"].value;
+
+        // Effettuare le operazioni necessarie sui valori dei campi del form
+        console.log(name);
+
+        // Impedire l'invio del form
+        event.preventDefault();
+      }
+    }
+
+    const myForm = new Form();
+  </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="Sola_esercizio_js_45.js"></script>
+    <title>Registrazione utente</title>
+</head>
+
+<body>
+    <form id="campi">
+        <input type="text" id = 'name' placeholder="nome">
+        <input type="text" id = 'surname' placeholder="cognome">
+        <input type="number" id ='eta' min=1 max = 120 placeholder="età">
+        <select name="capelli" id="hair">
+            <option value="biondo">Biondo</option>
+            <option value="castano">Castano</option>
+            <option value="nero">Nero</option>
+            <option value="rosso">Rosso</option>
+            <option value="bianco">Bianco</option>
+        </select>
+        <input type="submit" value="Submit" onclick="salvadati_form()"/>
+      </form>
+</body>
+</html>

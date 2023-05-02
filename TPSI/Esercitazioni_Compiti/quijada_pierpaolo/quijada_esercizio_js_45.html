@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+    <head>
+        <title>Esercitazione 45</title>
+        <script src="quijada_esercizio_js_45.js"></script>
+    </head>
+    <body>
+        <h1>Registrazione</h1>
+        <form id="form">
+            <label for="nome">Nome</label><br>
+            <input type="text" id = "nome"><br>
+            <label for="cognome">Cognome</label><br>
+            <input type="text" id = "cognome"><br>
+            <label for="eta">Eta'</label><br>
+            <input type="number" id = "eta" min = 1 max = 100><br>
+            <label for="capelli">Capelli</label><br>
+            <select id="capelli" name="capelli">
+                <option value="biondo"> Biondo </option>
+                <option value="castano"> Castano</option>
+                <option value="nero"> Nero </option>
+                <option value="rosso"> Rosso </option>
+            </select><br><br><br>
+            <input type="submit" value="Submit" onclick="process_form()" />
+        </form>
+    </body>
+</html>

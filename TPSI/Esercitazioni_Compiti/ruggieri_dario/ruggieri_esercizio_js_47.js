@@ -34,8 +34,6 @@ class Poligono {
     cambia_reg() {this.reg=!this.reg}
 }
 
-
-
 let animale1 = new Animale("cane","kira",15);
 let animale2 = new Animale("mucca","gina",6);
 
